@@ -17,9 +17,6 @@ def main() -> None:
   """Main entry point for Starlet Setup."""
   args = parse_args()
 
-  if not args.repo:
-    args = interactive_mode(args)
-
   if args.init_config:
     create_default_config()
     return
@@ -50,7 +47,10 @@ def main() -> None:
   if args.profile_remove:
     remove_profile(args.config, args.profile_remove)
     return
-  
+
+  if not args.repo:
+    args = interactive_mode(args)
+
   check_prerequisites(args.verbose) 
   if args.mono_repo or args.profile:
     mono_repo_mode(args)
